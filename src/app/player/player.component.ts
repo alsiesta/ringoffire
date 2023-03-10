@@ -9,7 +9,7 @@ import { Component } from '@angular/core';
 })
 export class PlayerComponent implements OnInit{
   @Input() name;
-
+  @Input()playerActive: boolean = false;
   ngOnInit(): void {
     
   }
