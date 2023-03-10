@@ -24,6 +24,7 @@ export class GameComponent implements OnInit {
     this.game = new Game();
     console.log(this.game);
   }
+
   takeCard() {
     if (!this.pickCardAnimation) {
       this.currentCard = this.game.stack.pop();
@@ -31,6 +32,9 @@ export class GameComponent implements OnInit {
       this.pickCardAnimation = true;
       // console.log('cards remaining in stack: ', this.game.stack)
       // console.log('played cards are: ', this.game.playedCards)
+      
+      this.game.currentPlayer++; 
+      this.game.currentPlayer = this.game.currentPlayer % this.game.players.length; 
       
       setTimeout(() => {
         this.game.playedCards.push(this.currentCard);
@@ -43,9 +47,10 @@ export class GameComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
     dialogRef.afterClosed().subscribe(name => {
-      console.log('The dialog was closed', name);
-      this.game.players.push(name);
-      console.log(this.game.players);
+      if (name && name.length > 0) { // prüfen, ob die Variable existiert und wenn ja, ob was drin steht. Nur dann wird der Name als Spieler in Players gepusht
+        
+        this.game.players.push(name);
+      }
     });
   }
 }
